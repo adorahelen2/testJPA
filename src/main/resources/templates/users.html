@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management</title>
+    <link rel="stylesheet" href="/css/usersStyle.css">
+</head>
+<body>
+<header>
+    <h1>JPA User Management</h1>
+</header>
+
+<main>
+    <!-- 사용자 목록 -->
+    <section>
+        <h2>Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 사용자 데이터를 반복 출력 -->
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">1</td>
+                <td th:text="${user.username}">john_doe</td>
+                <td th:text="${user.email}">john@example.com</td>
+                <td>
+                    <!-- 사용자 삭제 버튼 -->
+                    <form th:action="@{/users/delete/{id}(id=${user.id})}" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 새 사용자 추가 -->
+    <section>
+        <h2>Add New User</h2>
+        <form th:action="@{/users/add}" method="post">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Add User</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>
